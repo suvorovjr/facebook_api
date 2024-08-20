@@ -5,6 +5,10 @@ from schemas import PagesResponseModel, ResponseAPIModel
 
 
 def fetch(method: str, url: str, params: dict) -> dict:
+    """
+    Функция для отправки POST и GET запросов
+    """
+
     if method == 'GET':
         response = requests.get(url=url, params=params)
         return response.json()
@@ -14,6 +18,10 @@ def fetch(method: str, url: str, params: dict) -> dict:
 
 
 def get_api_pages(access_token: str) -> PagesResponseModel:
+    """
+    Функция для получения страниц, к которым имеем доступ по API
+    """
+
     method = 'GET'
     url = f'https://graph.facebook.com/v20.0/me/accounts'
     params = {'access_token': access_token}
@@ -23,6 +31,10 @@ def get_api_pages(access_token: str) -> PagesResponseModel:
 
 
 def get_posts(page_token: str, page_id: str, limit: Optional[int] = 50) -> ResponseAPIModel:
+    """
+    Функция для получения постов со страницы
+    """
+
     method = 'GET'
     url = f'https://graph.facebook.com/v20.0/{page_id}/posts'
     params = {'access_token': page_token, 'limit': limit}
@@ -32,6 +44,10 @@ def get_posts(page_token: str, page_id: str, limit: Optional[int] = 50) -> Respo
 
 
 def get_reviews(page_token: str, post_id: str, limit: Optional[int] = 50) -> ResponseAPIModel:
+    """
+    Функция для получения комментариев к посту
+    """
+
     method = 'GET'
     url = f'https://graph.facebook.com/v20.0/{post_id}/comments'
     params = {'access_token': page_token, 'limit': limit}
@@ -41,6 +57,10 @@ def get_reviews(page_token: str, post_id: str, limit: Optional[int] = 50) -> Res
 
 
 def reply_to_comment(review_id: str, message: str, page_token: str) -> dict:
+    """
+    Функция для ответа на комментарий
+    """
+
     method = 'POST'
     url = f"https://graph.facebook.com/v20.0/{review_id}/comments"
     params = {
